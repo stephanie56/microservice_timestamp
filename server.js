@@ -8,20 +8,24 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, "views", "index.html"));
 });
 
-app.get('/:id', (req, res) => {
-  const userInput = req.params.id;
-  if (!isNaN(userInput)){
+app.get('/:param', (req, res) => {
+  const userInput = req.params.param;
+  if (!isNaN(userInput)) {
     res.send({
       "unix": userInput,
-      "natural": new Date(userInput).toString()
+      "natural": new Date(userInput * 1000).toDateString()
     });
   }
-  else {
+  if (!isNaN(Date.parse(userInput))) {
     res.send({
-      "unix": null,
-      "natural": null
+      "unix": Date.parse(userInput),
+      "natural": userInput
     });
   }
+  res.send({
+    "unix": null,
+    "natural": null
+  });
 });
 
 app.listen(PORT);
