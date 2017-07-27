@@ -18,7 +18,7 @@ app.get('/:param', (req, res) => {
   }
   if (!isNaN(Date.parse(userInput))) {
     res.send({
-      "unix": Date.parse(userInput),
+      "unix": Date.parse(userInput) / 1000,
       "natural": userInput
     });
   }
