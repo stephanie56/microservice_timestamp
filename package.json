@@ -1,15 +1,18 @@
 {
-  "name": "nodejs_microservice",
+  "name": "microservice_timestamp",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "deploy": "npm run build && gh-pages -d build"
   },
   "keywords": [],
   "author": "Stephanie Zeng",
   "license": "ISC",
   "dependencies": {
     "express": "^4.15.2"
+  },
+  "devDependencies": {
+    "gh-pages": "^1.0.0"
   }
 }
