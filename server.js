@@ -18,30 +18,31 @@ app.get('/', (req, res) => {
 app.get('/:param', (req, res) => {
   // POST result based on req.url
   const userInput = req.params.param;
-  const POST = {};
+  const POST = {
+   "unix": null,
+   "natural": null
+  };
   
-  // Condition: typeof unserInput
-  // 1. userInput is a Number: (userInput) => natural(userInput)
+  // Condition: is unserInput or Date.parse(userInput) a Number?
+  // 1. userInput is a Number: (userInput) => NUMBER_TO_DATE(userInput)
   // 2. userInput is not a Number:
   //    a. Date.parse(userInput) is a Number: (userInput) => unix(userInput)
   //    b. Date.parse(userInput) is not a Number: send null
-   
+  
+  // userInput is a Number: 
   if (!isNaN(userInput)) {
-    res.send({
-      "unix": userInput,
-      "natural": new Date(userInput * 1000).toDateString()
-    });
+    POST.unix = userInput;
+    POST.natural = NUMBER_TO_DATE(userInput);
   }
-  if (!isNaN(Date.parse(userInput))) {
-    res.send({
-      "unix": Date.parse(userInput) / 1000,
-      "natural": userInput
-    });
+  
+  // userInput is not a Number && Date.parse(userInput) is a Number: 
+  if (isNaN(userInput) && !isNaN(Date.parse(userInput))) {
+    POST.unix = DATESTRING_TO_UNIX(userInput);
+    POST.natural = userInput;;
   }
-  res.send({
-    "unix": null,
-    "natural": null
-  });
+      
+  res.send(POST);
+      
 });
 
 app.listen(PORT);
