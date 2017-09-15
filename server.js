@@ -12,11 +12,23 @@ const app = express();
 
 /** HELPER FUNCTIONS **/
 
+/** IS_VALID_TIMESTAMP
+input: Number (unix date)
+expected output: Bool (isValidTimeStamp)
+**/
+function IS_VALID_TIMESTAMP(num){
+
+      // Expecting: Bool
+      return isValidTimeStamp;
+}
+
 /** NUMBER_TO_DATE
 input: Number (unix date)
 expected output: String (natural date)
 **/
 function NUMBER_TO_DATE(num){
+      
+      // Expecting: Bool
       return naturalDateString;
 }
 
@@ -42,8 +54,8 @@ app.get('/:param', (req, res) => {
    "natural": null
   };
   
-  // CASE 1: userInput is a Number: NUMBER_TO_DATE(userInput)
-  if (!isNaN(userInput)) {
+  // CASE 1: userInput is a Number && is a valid unix time stamp: NUMBER_TO_DATE(userInput)
+  if (!isNaN(userInput) && isValidTimeStamp(userInput)) {
     POST.unix = userInput;
     POST.natural = NUMBER_TO_DATE(userInput);
     res.send(POST);
